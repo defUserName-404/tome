@@ -15,6 +15,7 @@
 
 ## Planned features
 
+- **Agentic answers:** the model decides which tool to use (search docs, fetch a page, recall memory, save a note) within step and cost limits, and asks you before it fetches or writes anything.
 - **Retrieval-augmented answers** with a source and section for every claim, and an honest "not found" when the sources don't support an answer.
 - **Many sources:** Obsidian vault (frontmatter, tags, wikilinks), markdown and HTML docs, PDF books, web pages by URL, local git repos.
 - **Semantic cache:** a reworded question reuses an earlier answer without an LLM call.
@@ -37,12 +38,14 @@ The full list is in the [requirements](docs/requirements/functional.md).
 | UC7 | Ask about my own projects from their READMEs |
 | UC8 | Switch between a cloud and a local model |
 | UC9 | Save an answer to my Obsidian vault |
+| UC10 | Paste a URL and get an answer from that page, after confirming the fetch |
+| UC11 | Compare my notes with the official docs, then save a summary |
 
 Details and expected outcomes: [use-cases.md](docs/requirements/use-cases.md).
 
 ## Architecture
 
-Python and [RedisVL](https://github.com/redis/redis-vl-python) on Redis Stack. Ingestion fills one Redis index; every question checks the semantic cache first, then retrieves chunks and asks the LLM. See [architecture](docs/architecture.md) and the [decision records](docs/decisions/).
+Python and [RedisVL](https://github.com/redis/redis-vl-python) on Redis Stack. Ingestion fills one Redis index; every question checks the semantic cache first, then an LLM-driven tool loop searches the index, fetches pages and saves notes, asking you before it does either of the last two. See [architecture](docs/architecture.md) and the [decision records](docs/decisions/).
 
 ## Quickstart (phase 0: environment only)
 

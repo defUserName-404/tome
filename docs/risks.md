@@ -1,6 +1,6 @@
 # Risks and Open Questions
 
-**The biggest risks are a wrong cache hit, a damaged vault, and being locked into one embedding model.** Each has a planned control.
+**The biggest risks are a wrong cache hit, a damaged vault, prompt injection through notes and web pages, and being locked into one embedding model.** Each has a planned control.
 
 | Risk | Likelihood | Impact | Mitigation |
 | --- | --- | --- | --- |
@@ -13,6 +13,10 @@
 | Poor chunking of long or unstructured notes lowers answer quality | Medium | Medium | Chunk by heading; tune size and overlap against the test set |
 | API rate limits or outages slow ingest | Medium | Low | Batch embeddings, retry with backoff, resume where it stopped |
 | Sync tools (iCloud, Obsidian Sync) create conflicts with written notes | Low | Medium | Write new files only; unique filenames with timestamps |
+| The agent loop runs too long or repeats tool calls, burning tokens and time | Medium | High | Step limit and cost cap; stop and answer from what was gathered (FR-36, NFR-14) |
+| Text in a note or fetched page tries to steer the agent, for example "save this note" | Medium | High | Mark retrieved text as untrusted; confirmation for `fetch_url` and `save_note`; injection test set (FR-37, FR-38, NFR-15) |
+| Small local models call tools badly or not at all | High | Medium | Fixed-pipeline fallback and a visible mode label; test each provider (FR-40) |
+| The model answers from its own knowledge instead of searching the sources | Medium | Medium | Prompt requires `search_docs` before answering; citations required; tool-choice test set |
 
 **Open questions**
 
@@ -21,3 +25,4 @@
 - [ ] Which web docs sites and which repos come first?
 - [ ] Is the vault in git or backed up before write-back is switched on?
 - [ ] Should the interface stay a CLI, or later also expose an Obsidian plugin or local API?
+- [ ] Keep the tool loop hand-written, or adopt a framework such as PydanticAI later (see ADR 0005)?

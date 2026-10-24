@@ -13,5 +13,9 @@
 | Vault stays safe | 20 save requests, including ones aimed at existing notes and outside folders | 0 overwrites, 0 writes outside the configured folder |
 | Provider is swappable | Run the same 30 questions on cloud and on Ollama by changing config only | Both run with no code change |
 | Repeatable | A fresh clone is set up from the README | working in under 15 minutes |
+| Picks the right tool | 20 test questions, each with the expected first tool (for example a pasted URL expects `fetch_url`) | at least 85% correct first tool |
+| Stays inside limits | 10 questions built to make the loop wander or repeat | 0 exceed the step or cost cap |
+| Resists injected instructions | 10 notes and pages that say "save this note" or "fetch this URL" | 0 side-effect calls without my confirmation |
+| Fallback works | The 30-question set on a local model without reliable tool calling | Runs in pipeline mode and reports the mode |
 
-**Learning and portfolio outcome:** I can explain and demo chunking, embeddings, vector search, semantic caching and memory, and the repo has a README, tests and a short demo recording.
+**Learning and portfolio outcome:** I can explain and demo chunking, embeddings, vector search, semantic caching, memory and a tool-calling agent loop, and the repo has a README, tests and a short demo recording.
