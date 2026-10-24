@@ -16,6 +16,9 @@ htmlcov/
 .env.*
 !.env.example
 
+# Local agent settings
+.claude/settings.local.json
+
 # Local data
 data/
 *.rdb

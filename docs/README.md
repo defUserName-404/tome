@@ -15,6 +15,14 @@ The requirements specification is split by topic. Read them in this order.
 | [Roadmap](roadmap.md) | The eight build phases |
 | [Glossary](glossary.md) | RAG, embedding, semantic cache and other terms |
 
+## Development
+
+| Document | What it answers |
+| --- | --- |
+| [Working with AI coding agents](development/agents.md) | Slash commands, subagents and skills set up for this repo |
+| [Plans](plans/TEMPLATE.md) | The plan template; plans live in `docs/plans/` |
+| [Phase 0 plan](plans/000-phase-0-environment.md) | The first concrete plan: the environment |
+
 ## Decision records
 
 Significant technical decisions are recorded in [decisions/](decisions/).
