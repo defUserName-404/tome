@@ -1,6 +1,6 @@
 # Functional Requirements
 
-**The system has 33 functional requirements in eight groups; 22 are Must-have for v1.** Priority uses MoSCoW: M = must, S = should, C = could. The last column links each requirement to the use cases in [use-cases.md](use-cases.md).
+**The system has 40 functional requirements in eight groups; 27 are Must-have for v1.** Priority uses MoSCoW: M = must, S = should, C = could. The last column links each requirement to the use cases in [use-cases.md](use-cases.md).
 
 ## Ingestion
 
@@ -22,7 +22,7 @@
 | FR-09 | Embed chunks and queries with the selected embedding model and store vectors in a Redis vector index | M | all |
 | FR-10 | Return the top-k most similar chunks for a query (k configurable) | M | all |
 | FR-11 | Filter retrieval by metadata (source type, tag, folder) before or during vector search | S | UC2, UC3 |
-| FR-12 | Generate the answer with the LLM using only the retrieved chunks as context | M | all |
+| FR-12 | Generate the answer with the LLM using only retrieved chunks and tool results as context | M | all |
 | FR-13 | Cite every answer with source, path or URL, and section heading | M | all |
 | FR-14 | When retrieved chunks do not support an answer, say so instead of guessing | M | all |
 | FR-15 | Flag conflicts when notes and official docs disagree | C | UC3 |
@@ -31,7 +31,7 @@
 
 | ID | Requirement | Priority | Use cases |
 | --- | --- | --- | --- |
-| FR-16 | Before retrieval, look up the query in a semantic cache; on a hit above the similarity threshold, return the stored answer without an LLM call | M | UC4 |
+| FR-16 | Before retrieval or any tool call, look up the query in a semantic cache; on a hit above the similarity threshold, return the stored answer without an LLM call | M | UC4 |
 | FR-17 | Similarity threshold and time-to-live are configurable | M | UC4 |
 | FR-18 | Clear cached answers that depend on a source when that source is re-indexed | S | UC4, UC6 |
 | FR-19 | Show whether an answer came from cache, and log tokens and estimated cost saved | S | UC4 |
@@ -70,6 +70,18 @@
 | --- | --- | --- | --- |
 | FR-33 | Provide a CLI with commands `ingest`, `ask`, `chat`, `sources`, `reindex`, `save`, `memory` | M | all |
 
+## Agent loop
+
+| ID | Requirement | Priority | Use cases |
+| --- | --- | --- | --- |
+| FR-34 | Answer a question through a tool-calling loop: the LLM picks a tool, reads the result, and repeats until it can answer | M | all |
+| FR-35 | Provide five tools, each with a typed schema and a clear description: `search_docs` (vector search with metadata filters), `fetch_url` (fetch and index a page), `recall` and `remember` (memory), `save_note` (vault write-back) | M | UC3, UC5, UC6, UC9, UC10, UC11 |
+| FR-36 | Limit each question to a configurable number of steps (default 6) and a cost cap; when a limit is hit, stop and answer from what was gathered, or say what is missing | M | all |
+| FR-37 | `fetch_url` and `save_note` need my confirmation on every call; the model cannot skip or pre-approve it, and FR-25 to FR-27 still apply to `save_note` | M | UC6, UC9, UC10, UC11 |
+| FR-38 | Mark retrieved chunks and fetched pages as untrusted data in the prompt; an instruction found inside them is never followed as if it came from me | M | all |
+| FR-39 | Show a trace of each tool call (tool, arguments, result summary, tokens) and write it to a log | S | all |
+| FR-40 | When the selected provider lacks reliable tool calling (for example a small local model), fall back to the fixed pipeline (cache, retrieve, answer) and say which mode is active | S | UC8 |
+
 ## Coverage check
 
-Every use case is covered by at least one Must requirement: UC1 and UC7 by FR-01, FR-05, FR-12 and FR-13; UC2 by FR-02 and FR-09; UC3 by FR-02 and FR-12; UC4 by FR-16 and FR-17; UC5 by FR-20 and FR-21; UC6 by FR-03 and FR-07; UC8 by FR-30 and FR-32; UC9 by FR-24 to FR-27.
+Every use case is covered by at least one Must requirement: UC1 and UC7 by FR-01, FR-05, FR-12 and FR-13; UC2 by FR-02 and FR-09; UC3 by FR-02 and FR-12; UC4 by FR-16 and FR-17; UC5 by FR-20 and FR-21; UC6 by FR-03 and FR-07; UC8 by FR-30 and FR-32; UC9 by FR-24 to FR-27; UC10 by FR-03, FR-34, FR-35 and FR-37; UC11 by FR-34, FR-35 and FR-37.

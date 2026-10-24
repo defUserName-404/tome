@@ -1,6 +1,6 @@
 # Users and Use Cases
 
-**One primary user: me, a developer who keeps notes in Obsidian, reads technical docs, and works on personal projects.** Nine use cases define what the agent must do.
+**One primary user: me, a developer who keeps notes in Obsidian, reads technical docs, and works on personal projects.** Eleven use cases define what the agent must do.
 
 | ID | Scenario | Example input | Expected outcome |
 | --- | --- | --- | --- |
@@ -13,3 +13,5 @@
 | UC7 | Ask about my own projects | "How is the AI\_Farming data pipeline structured?" | Answer from that repo's README and docs, with file paths |
 | UC8 | Switch provider | "Use local Ollama for this session" | Same features work on a local model, chosen by config or asked at start |
 | UC9 | Save results to Obsidian | "Save this answer to my vault" | New note written to a safe folder with tags, date and links to its sources; indexed afterwards |
+| UC10 | Answer from a page I paste | "How does semantic caching work here? https://redis.io/docs/..." | Tome proposes fetching the page and asks me to confirm; it indexes the page, then answers with the page cited. If I decline, it says what it could not use |
+| UC11 | Multi-step task | "Compare my Docker volume notes with the official docs, then save a summary" | Tome searches my notes and the docs, answers with both cited, then offers to save the summary; the note is written only after I confirm |

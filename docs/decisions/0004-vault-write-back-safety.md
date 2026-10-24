@@ -18,6 +18,7 @@ All vault writes follow these rules:
 5. Index written notes, labelled as AI-generated so they rank below the user's own notes (FR-29).
 6. Write new files with unique, timestamped names, so sync tools such as iCloud or Obsidian Sync do not create conflicts.
 7. Log every write.
+8. When `save_note` is called by the agent loop, the same rules apply and the user confirms every call ([ADR 0005](0005-agentic-tool-loop.md)).
 
 Writes use direct file access, which works with Obsidian closed. An Obsidian MCP or Local REST API can be added later as an option, under the same rules.
 

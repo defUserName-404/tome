@@ -15,3 +15,6 @@
 | Ollama | Tool for running LLMs and embedding models locally |
 | Vault | An Obsidian folder of markdown notes |
 | MoSCoW | Priority labels: Must, Should, Could |
+| Agent loop | The cycle where the LLM picks a tool, reads the result and repeats until it can answer |
+| Tool calling | An LLM feature where the model asks the program to run a named function with arguments |
+| Prompt injection | Text in a note or web page that tries to give the LLM instructions of its own |

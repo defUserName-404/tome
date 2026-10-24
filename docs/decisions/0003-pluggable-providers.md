@@ -11,7 +11,8 @@ Answer quality is best with a cloud LLM, but some notes are private and some use
 
 - LLM and embedding providers are separate adapters selected by config or environment (`TOME_LLM_PROVIDER`, `TOME_EMBEDDING_PROVIDER`), or asked for at start when unset.
 - Cloud is the default. Local models (Ollama) are optional and never required.
-- Only the question and the retrieved chunks are sent to a cloud LLM. The full vault is never uploaded.
+- Only the question and what tools return (retrieved chunks, fetched pages) are sent to a cloud LLM. The full vault is never uploaded.
+- Each LLM adapter declares whether it supports reliable tool calling; if not, Tome runs the fixed pipeline instead of the agent loop ([ADR 0005](0005-agentic-tool-loop.md)).
 - The index stores the embedding model name and dimensions. If they change, Tome requires a re-index instead of failing silently.
 
 ## Consequences

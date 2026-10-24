@@ -4,11 +4,11 @@
 
 | ID | Area | Requirement | Target |
 | --- | --- | --- | --- |
-| NFR-01 | Privacy | Only the retrieved chunks and the question are sent to a cloud LLM; the full vault is never uploaded | Verified by logging the outbound prompt |
+| NFR-01 | Privacy | Only the question and what tools return (retrieved chunks, fetched pages) are sent to a cloud LLM; the full vault is never uploaded | Verified by logging the outbound prompt |
 | NFR-02 | Privacy | With a local provider selected, no document text leaves the machine | Zero outbound calls except Redis and Ollama |
 | NFR-03 | Security | API keys come from environment variables or a git-ignored `.env`; never from code or notes | No secrets in the repo |
 | NFR-04 | Latency | Cached answer returned | under 300 ms |
-| NFR-05 | Latency | Uncached answer, retrieval plus LLM, first token | under 5 s with a cloud LLM |
+| NFR-05 | Latency | Uncached answer in pipeline mode, retrieval plus LLM, first token | under 5 s with a cloud LLM |
 | NFR-06 | Cost | Show tokens used and estimated cost per query and per session | Reported on every answer |
 | NFR-07 | Cost | Initial ingest of Pro Git plus a 5,000-note vault | under 5 USD in cloud embedding fees, or free with local embeddings |
 | NFR-08 | Safety | Vault writes limited to one folder; no deletes; all writes logged | 0 unintended file changes |
@@ -16,3 +16,6 @@
 | NFR-10 | Setup | One command (`docker compose up`) starts Redis Stack; one command ingests; setup documented in the README | New machine ready in under 15 minutes |
 | NFR-11 | Testability | Ingestion, retrieval, cache and write-back each have automated tests; a fixed question set measures answer quality | Tests run with one command |
 | NFR-12 | Portability | Runs on macOS and Linux with Python 3.11 or newer | Both pass the smoke tests |
+| NFR-13 | Latency | Final answer in agent mode with up to 3 tool calls | under 20 s with a cloud LLM |
+| NFR-14 | Cost | Each question stops at the step limit (default 6) and the cost cap (default 0.25 USD) | No question exceeds either limit |
+| NFR-15 | Security | Instructions hidden in notes or web pages cannot trigger `fetch_url` or `save_note` without my confirmation | 0 side-effect calls without confirmation in the injection test set |
