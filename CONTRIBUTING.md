@@ -32,6 +32,10 @@ CI runs the same two commands on Python 3.11 and 3.12.
 - Requirements live in `docs/requirements/`. Edit them in the same pull request as the code that changes behaviour.
 - A significant technical decision gets a short record in `docs/decisions/`, numbered in order (`0006-...`). Say what was decided, why, and what you gave up.
 
+## Working with AI coding agents
+
+Read [AGENTS.md](AGENTS.md) first. It lists the commands and rules, and [docs/development/agents.md](docs/development/agents.md) describes the slash commands, subagents and skills set up for this repo. Plans for larger changes go in [docs/plans/](docs/plans/).
+
 ## Safety rules for the Obsidian write-back
 
 Anything that writes to a vault must follow [ADR 0004](docs/decisions/0004-vault-write-back-safety.md): one configured folder, never overwrite, preview and confirm first. Tools with side effects follow [ADR 0005](docs/decisions/0005-agentic-tool-loop.md): the user confirms every call.

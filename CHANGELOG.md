@@ -12,6 +12,9 @@ All notable changes are documented here. The format follows [Keep a Changelog](h
 - Project scaffold: Docker Compose for Redis Stack, Python package stub, smoke test, CI workflow, issue and pull request templates.
 - ADR 0005 and FR-34 to FR-40: an agentic tool-calling loop with step and cost limits, confirmation for side effects, untrusted-content handling and a fixed-pipeline fallback.
 - Use cases UC10 and UC11, NFR-13 to NFR-15, and matching success criteria and risks.
+- Agent tooling: `AGENTS.md`, `CLAUDE.md`, shared Claude Code permissions, five slash commands, three subagents, four skills, and `docs/development/agents.md`.
+- Implementation plans: `docs/plans/` with a template and the phase 0 plan.
+- `scripts/check_spec.py` and a test that checks links, requirement IDs and counts.
 
 ### Changed
 
